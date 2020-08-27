@@ -1,0 +1,100 @@
+body{
+    margin:0;
+    padding:0;
+    /* text-align:left; */
+    font-size: 32px;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+main{
+    border-bottom:1px solid #ccc;
+}
+footer{
+    font-size: 10px;
+    color: white;
+    background-color: grey;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+p{
+    font-size:100%;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:200px;
+}
+ul{
+    padding: 0;
+    border-top: 1px solid #000000;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:100%;
+}
+li{
+    text-align: center;
+    list-style-type:none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+}
+li:hover{
+    background: #0066CC;
+    color:#fff;
+}
+/* .hand_box>img:hover{
+    width:150px;
+    display: inline-block;
+    animation: hurueru 0.5s  infinite;    
+}
+.hand_box>img:active{
+    width:150px;   
+} */
+
+.shake_left {
+    display: inline-block;
+    animation: s_left 0.5s  infinite;
+}
+
+@keyframes s_left {
+    0% {transform: translate(0px, 0px) rotateZ(0deg)}
+    25% {transform: translate(2px, 2px) rotateZ(1deg)}
+    50% {transform: translate(0px, 2px) rotateZ(0deg)}
+    75% {transform: translate(2px, 0px) rotateZ(-1deg)}
+    100% {transform: translate(0px, 0px) rotateZ(0deg)}
+}
+
+.box_wrapper{
+    display:flex;
+    width: 500px;
+    margin:0 auto;
+}
+.pc_box{
+    margin-top: 53px;
+}
+#pc_hands{
+    width: 50%;
+    text-align:center;
+}
+.you_box{
+    width: 50%;
+    text-align:center;
+}
+.hand_box{
+    height:100px;
+    /* width:100%; */
+    margin: 0 auto;
+}
+
+p{
+    text-align:center;
+}
+.judgment_view{
+    text-align:center;
+}
+
+.table_result{
+    border-top:solid 1px grey;
+}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+  <h3>じゃんけん</h3>
+  <div class="total">勝負数 : 0 回</div>
+  <input type="reset" value="勝負数をリセット" id="form">
+</header>
+
+<main>
+  <ul>
+    <li id="gu_btn">グー</li>
+    <li id="cho_btn">チョキ</li>
+    <li id="par_btn">パー</li>
+  </ul>
+  <div class="rand"></div>
+  <div>コンピュータの出した手は？「<span id="pc_hands">なに？</span>」</div>
+  <div id="judgment">ー</div>
+  <div class="win">勝ち数 ： 0 回</div>
+
+  <div class="table_result">
+    <div class="hist_pc"># com:</div>
+    <div class="hist_you"># you:</div>
+    <div class="hist_result"># result:</div>
+  </div>
+
+</main>
+
+  <footer>2020 Holly GsAcademy's Subject (javascript) </footer>
+<script>
+//じゃんけん用のSCRIPTを書いてください
+
+// 互いの打ちての勝敗判定
+
+  function hands_judgement(hands, pc_hands){
+
+    let judge = "ー";
+
+    if (hands == pc_hands){
+      judge = "引き分け";
+      hist_result.push(' ー ');
+    }else if (hands=="グー" && pc_hands=="チョキ"){
+      judge = "勝ち";
+      var_win += 1;
+      hist_result.push(' ○ ');
+    }else if (hands=="グー" && pc_hands=="パー"){
+      judge = "負け";
+      hist_result.push(' ● ');
+    }else if (hands=="チョキ" && pc_hands=="グー"){
+      judge = "負け";
+      hist_result.push(' ● ');
+    }else if (hands=="チョキ" && pc_hands=="パー"){
+      judge = "勝ち";
+      var_win += 1; 
+      hist_result.push(' ○ ');
+    }else if (hands=="パー" && pc_hands=="グー"){
+      judge = "勝ち";
+      var_win += 1;
+      hist_result.push(' ○ ');
+    }else if (hands=="パー" && pc_hands=="チョキ"){
+      judge = "負け";
+      hist_result.push(' ● ');
+    }
+    return judge;
+}
+
+// 互いの「手」の表示
+function disp_judgement(hands){
+
+  let pc_hands = "-";
+  let judge = "ー";
+  $("#pc_hands").html(pc_hands);
+  $("#judgment").html(judge);  
+
+  if ( num == 1 ){
+    pc_hands = "グー";
+    hist_pc.push(' gu ');
+    $('.hist_pc').html("# com:" + hist_pc);
+  }else if ( num == 2 ){
+    pc_hands = "チョキ";
+    hist_pc.push(' ch ');
+    $('.hist_pc').html("# com:" + hist_pc);
+  }else if ( num == 3 ){
+    pc_hands = "パー";
+    hist_pc.push(' pa ');
+    $('.hist_pc').html("# com:" + hist_pc);
+  };
+  // 表示部
+  judge = hands_judgement(hands, pc_hands);
+  $("#pc_hands").html(pc_hands);
+  $("#judgment").html("result : " + judge);
+}
+
+let var_gu = 0;
+let var_cho = 0;
+let var_par = 0;
+let var_win = 0;
+let var_total = 0;
+let hist_you = [];
+let hist_pc = [];
+let hist_result = [];
+
+// 乱数の表示
+let num = 0;
+var count = 0;
+$('.rand').html("rand : " + num.toFixed(10));
+var countup = function(){
+  let rand = Math.random();
+  num = Math.ceil(rand* 3);
+  $('.rand').html("rand : " + rand.toFixed(10));
+} 
+setInterval(countup, 100);
+
+// ボタン押下時の処理（PCの手の選定と表示
+$("#gu_btn").on("click",function(){
+  let hands = "グー";
+  disp_judgement(hands);
+  var_gu += 1;
+  var_total += 1;
+  var_win_ratio = (var_win / var_total)*100;
+  hist_you.push(' gu ');
+  $('.total').html("勝負数 : " + var_total + " 回");
+  $('.win').html("勝ち数 : " + var_win + " 回（勝率 " + var_win_ratio.toFixed(1) + "%)");
+  $('.hist_you').html("# you:" + hist_you);
+  $('.hist_result').html("# result:" + hist_result);
+
+  if(var_total>10){location.reload();};
+
+});
+$("#cho_btn").on("click",function(){
+  let hands = "チョキ";
+  disp_judgement(hands);
+  var_cho += 1;
+  var_total += 1;
+  var_win_ratio = (var_win / var_total)*100;
+  hist_you.push(' ch ');
+  $('.total').html("勝負数 : " + var_total + " 回");
+  $('.win').html("勝ち数 : " + var_win + " 回（勝率 " + var_win_ratio.toFixed(1) + "%)");
+  $('.hist_you').html("# you:" + hist_you);
+  $('.hist_result').html("# result:" + hist_result);
+
+  if(var_total>10){location.reload();};
+
+});
+$("#par_btn").on("click",function(){
+  let hands = "パー";
+  disp_judgement(hands);
+  var_par += 1;
+  var_total += 1;
+  var_win_ratio = (var_win / var_total)*100;
+  hist_you.push(' pa ');
+  $('.total').html("勝負数 : " + var_total + " 回");
+  $('.win').html("勝ち数 : " + var_win + " 回（勝率 " + var_win_ratio.toFixed(1) + "%)");
+  $('.hist_you').html("# you:" + hist_you);
+  $('.hist_result').html("# result:" + hist_result);
+
+  if(var_total>10){location.reload();};
+
+});
+
+// リセットボタン
+$('#form').click(function() {
+    location.reload();
+});
+
+</script>
+</body>
+</html>
